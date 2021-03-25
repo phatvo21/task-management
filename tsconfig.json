@@ -11,16 +11,16 @@
       "experimentalDecorators": true,
       "sourceMap": true,
       "paths": {
-         "@utils/*": ["src/utils/*"],
-         "@services/*": ["src/services/*"],
-         "@constants/*": ["src/constants/*"],
-         "@consoles/*": ["src/consoles/*"],
-         "@middlewares/*": ["src/middlewares/*"],
-         "@logging/*": ["src/logging/*"],
-         "@helpers/*": ["src/helpers/*"],
-         "@components/*": ["src/components/*"],
-         "@databases/*": ["src/databases/*"],
-         "@repositories/*": ["src/repositories/*"]
+         "utils/*": ["src/utils/*"],
+         "services/*": ["src/services/*"],
+         "constants/*": ["src/constants/*"],
+         "consoles/*": ["src/consoles/*"],
+         "middlewares/*": ["src/middlewares/*"],
+         "logging/*": ["src/logging/*"],
+         "helpers/*": ["src/helpers/*"],
+         "components/*": ["src/components/*"],
+         "databases/*": ["src/databases/*"],
+         "repositories/*": ["src/repositories/*"]
       },
       "plugins": [{ "transform": "typescript-transform-paths" }]
    },

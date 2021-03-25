@@ -1,13 +1,26 @@
 import { ExpressErrorMiddlewareInterface, Middleware } from "routing-controllers";
-import { logger } from "@logging/Logger";
+import { logger } from "logging/Logger";
 
 @Middleware({ type: "after" })
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {
    public error(error: any, req: any, res: any, next: (err?: any) => any): any {
-      if (error.type) {
+      console.log(error);
+      if (!error.message[0].constraints) {
          logger.info(error, error.type);
          return res.status(error.status).send({
             message: error.message,
+            error_code: error.error_code,
+         });
+      }
+      if (error.message[0].constraints) {
+         let message = [];
+         error.message.map((error) => {
+            const { property, constraints } = error;
+            message.push({ property, constraints });
+         });
+         logger.info(message, error.type);
+         return res.status(error.status).send({
+            message: message,
             error_code: error.error_code,
          });
       }

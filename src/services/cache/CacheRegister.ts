@@ -1,4 +1,4 @@
-import { ICache } from "@services/cache/ICache";
+import { ICache } from "services/cache/ICache";
 
 export class CacheRegister {
    private readonly ICache: ICache;

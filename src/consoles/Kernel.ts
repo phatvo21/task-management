@@ -1,7 +1,6 @@
 import { CronJob } from "cron";
 import { Register } from "./Register";
 import { HandleTask } from "./commands/HanldeTask";
-import { PubSubEventsService } from "@services/PubSubEventsService";
 
 export class Kernel {
    private cronJobs: Map<string, CronJob> = new Map<string, CronJob>();
@@ -16,8 +15,8 @@ export class Kernel {
       return Kernel.instance;
    }
 
-   public execute(pubsubService: PubSubEventsService): void {
-      this.cronJobs.set(this.handleTask.register().signature, this.handleTask.register().handle(pubsubService));
+   public execute(): void {
+      this.cronJobs.set(this.handleTask.register().signature, this.handleTask.register().handle());
       return this.cronJobs.forEach((job) => job.start());
    }
 }

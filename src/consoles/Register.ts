@@ -1,4 +1,4 @@
-import { CommandInterface } from "@consoles/interface/CommandInterface";
+import { CommandInterface } from "consoles/interface/CommandInterface";
 
 export class Register {
    private readonly command: CommandInterface;

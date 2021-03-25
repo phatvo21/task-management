@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { RoutingControllersOptions, useExpressServer } from "routing-controllers";
 import { Express } from "express";
-import { ErrorHandler } from "@middlewares/ErrorHandler";
-import { ApiVersion } from "@constants/ApiVersion";
-import { Environment } from "@constants/Environment";
+import { ErrorHandler } from "middlewares/ErrorHandler";
+import { ApiVersion } from "constants/ApiVersion";
+import { Environment } from "constants/Environment";
+import { TaskController } from "components/task/TaskController";
+import { AuthController } from "components/auth/AuthController";
+import { HmacSignatureHandler } from "middlewares/HmacSignatureHandler";
 
 export class RouteHandle {
    public static applyMiddleware = (middlewareWrappers: Wrapper[], router: Router) => {
@@ -23,8 +26,8 @@ export class RouteHandle {
 
    public static RoutingControllersOptions(): RoutingControllersOptions {
       return {
-         controllers: [],
-         middlewares: [ErrorHandler],
+         controllers: [TaskController, AuthController],
+         middlewares: [ErrorHandler, HmacSignatureHandler],
          routePrefix: ApiVersion.Version,
          cors: true,
          defaults: {

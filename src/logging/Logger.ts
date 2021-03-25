@@ -1,4 +1,4 @@
-import { Environment } from "@constants/Environment";
+import { Environment } from "constants/Environment";
 
 const isTestEnv = process.env.NODE_ENV === Environment.Testing;
 

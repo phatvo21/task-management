@@ -1,9 +1,9 @@
 import * as http from "http";
 import { Express } from "express";
 import { Server } from "http";
-import { logger } from "@logging/Logger";
+import { logger } from "logging/Logger";
 import * as P from "bluebird";
-import { databaseDisconnect } from "@databases/Disconnect";
+import { databaseDisconnect } from "databases/Disconnect";
 
 const SERVER_SHUTDOWN_TIMEOUT_MS = 10_000;
 

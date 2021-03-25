@@ -30,12 +30,15 @@ const databaseConnectionOptions = (mode: string): ConnectionOptions => {
       username: user,
       synchronize: false, // if true will change database structure
       logging: false,
-      entities: [...(!isProd ? ["src/database/entities/**/!(*.test.ts)"] : ["dist/database/entities/**/!(*.test.js)"])],
+      entities: [
+         ...(!isProd ? ["src/databases/entities/**/!(*.test.ts)"] : ["dist/databases/entities/**/!(*.test.js)"]),
+      ],
       extra: { ssl },
       migrationsRun: true,
       migrations: [
-         ...(!isProd ? ["src/database/migrations/**/!(*.test.ts)"] : ["dist/database/migrations/**/!(*.test.js)"]),
+         ...(!isProd ? ["src/databases/migrations/**/!(*.test.ts)"] : ["dist/databases/migrations/**/!(*.test.js)"]),
       ],
+      subscribers: [],
       cli: {
          entitiesDir: "src/databases/entities",
          migrationsDir: "src/databases/migrations",

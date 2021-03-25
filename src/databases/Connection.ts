@@ -1,5 +1,5 @@
 import { createConnection, Connection } from "typeorm";
-import { databaseConnectionOptions } from "@constants/TypeormConfig";
+import { databaseConnectionOptions } from "constants/TypeormConfig";
 
 const connectToDatabase = async (): Promise<Connection> => {
    const mode = process.env.NODE_ENV as "production" | "development";

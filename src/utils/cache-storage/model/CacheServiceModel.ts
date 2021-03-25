@@ -1,4 +1,4 @@
-import { CacheStorage } from "@utils/cache-storage/CacheStorage";
+import { CacheStorage } from "utils/cache-storage/CacheStorage";
 
 export class CacheServiceModel {
    cache: CacheStorage;

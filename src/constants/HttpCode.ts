@@ -5,7 +5,6 @@ export enum HttpCode {
    Success = 200,
    Created = 201,
    UnAuthorized = 401,
-   Authorized = 100,
-   Existing = 409,
+   Conflict = 409,
    Forbidden = 403,
 }

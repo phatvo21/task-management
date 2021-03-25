@@ -1,4 +1,4 @@
-import { Common } from "@middlewares/./Common";
+import { Common } from "middlewares/./Common";
 
 export class Middleware {
    public static handle(): any[] {

@@ -5,12 +5,13 @@ import { routingControllersToSpec } from "routing-controllers-openapi";
 import * as basicAuth from "express-basic-auth";
 import { Express } from "express";
 import * as swaggerUiExpress from "swagger-ui-express";
-import { openApiCredentials } from "@constants/Config";
+import { openApiCredentials } from "constants/Config";
 
 export class OpenApiConfiguration {
    public static openApiConfiguration(server: Express, routingControllersOptions: RoutingControllersOptions): void {
       const schemas = validationMetadatasToSchemas({
          classTransformerMetadataStorage: defaultMetadataStorage,
+         schemaNameField: "Create Task and Task Queue Request Body",
          refPointerPrefix: "#/components/schemas/",
       });
       const storage = getMetadataArgsStorage();
