@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export default class Task1616425392729 implements MigrationInterface {
+export default class Task1616698721105 implements MigrationInterface {
    public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
          new Table({
@@ -23,6 +23,9 @@ export default class Task1616425392729 implements MigrationInterface {
                { name: "updated_at", type: "datetime", isNullable: true },
             ],
          }),
+         true,
+         false,
+         true,
       );
    }
 

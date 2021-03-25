@@ -9,9 +9,9 @@ import { httpHmacPrivateKey, httpHmacPublicKey } from "constants/Config";
 export class HmacSignatureHandler implements ExpressMiddlewareInterface {
    async use(request: Request, response: Response, next: NextFunction): Promise<void> {
       const httpHmac = request.get("HTTP_HMAC");
+      const url = request.originalUrl;
       const generateHmacKey = Helpers.hmacEncrypt(httpHmacPrivateKey(), httpHmacPublicKey());
-      console.log(generateHmacKey);
-      if (httpHmac !== generateHmacKey) {
+      if (httpHmac !== generateHmacKey && !url.includes("/api/docs/")) {
          throw next({
             status: HttpCode.UnAuthorized,
             error_code: HttpCode.UnAuthorized,

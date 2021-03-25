@@ -22,6 +22,9 @@ export default class User1616425392759 implements MigrationInterface {
                { name: "updated_at", type: "datetime", isNullable: true },
             ],
          }),
+         true,
+         false,
+         true,
       );
    }
 

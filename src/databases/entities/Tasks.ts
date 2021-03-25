@@ -5,25 +5,21 @@ export class Tasks {
    @PrimaryGeneratedColumn({ type: "int", name: "id" })
    id: number;
 
-   @Column("varchar", { name: "title", nullable: false, length: 255 })
+   @Column({ type: "varchar", name: "title", nullable: false, length: 255 })
    title: string | null;
 
-   @Column("text", { name: "description", nullable: true })
+   @Column({ type: "text", name: "description", nullable: true })
    description: string | null;
 
-   @Column("varchar", { name: "task_identity", nullable: false, length: 255 })
+   @Column({ type: "varchar", name: "task_identity", nullable: false, length: 255 })
    taskIdentity: string | null;
 
-   @Column("enum", {
-      name: "status",
-      nullable: true,
-      enum: ["pending", "completed"],
-   })
+   @Column()
    status: "pending" | "completed" | null;
 
-   @Column("datetime", { name: "created_at", nullable: true })
+   @Column({ type: "datetime", name: "created_at", nullable: true })
    createdAt: Date;
 
-   @Column("datetime", { name: "updated_at", nullable: true })
+   @Column({ type: "datetime", name: "updated_at", nullable: true })
    updatedAt: Date;
 }

@@ -12,7 +12,7 @@ const tryParse = (): parser.ConnectionOptions => {
 };
 
 const databaseConnectionOptions = (mode: string): ConnectionOptions => {
-   const isTest = mode === "test";
+   const isTest = mode === "testing";
    const connectionString = !isTest
       ? tryParse()
       : { user: "root", database: "database", host: "localhost", password: "" };

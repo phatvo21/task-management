@@ -4,7 +4,7 @@ export const config = {
    },
    configCache: {
       taskManagementCache: {
-         expiredAfterInSeconds: 3600,
+         expiredAfterInSeconds: 86400,
       },
    },
    cacheService: "cacheService",

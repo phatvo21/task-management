@@ -3,8 +3,6 @@ registerAlias(__dirname, [
    "services",
    "utils",
    "databases",
-   "databases/entities",
-   "databases/migrations",
    "repositories",
    "components",
    "helpers",

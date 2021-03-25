@@ -6,19 +6,19 @@ export class Users {
    @PrimaryGeneratedColumn({ type: "int", name: "id" })
    id: number;
 
-   @Column("varchar", { name: "name", nullable: true, length: 255 })
+   @Column({ type: "varchar", name: "name", nullable: true, length: 255 })
    name: string | null;
 
-   @Column("varchar", { name: "email", nullable: false })
+   @Column({ type: "varchar", name: "email", nullable: false })
    email: string | null;
 
-   @Column("varchar", { name: "password", nullable: false })
+   @Column({ type: "varchar", name: "password", nullable: false })
    password: string | null;
 
-   @Column("datetime", { name: "created_at", nullable: true })
+   @Column({ type: "datetime", name: "created_at", nullable: true })
    createdAt: Date;
 
-   @Column("datetime", { name: "updated_at", nullable: true })
+   @Column({ type: "datetime", name: "updated_at", nullable: true })
    updatedAt: Date;
 
    @BeforeInsert()
