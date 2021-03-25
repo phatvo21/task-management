@@ -1,0 +1,83 @@
+version: "3.7"
+
+services:
+   taskmanagementapp:
+      build:
+         context: .
+         dockerfile: Dockerfile
+      image: task-management-docker
+      container_name: taskmanagementapp
+      depends_on:
+         - db
+         - redis
+      restart: always
+      tty: true
+      ports:
+         - "${SERVER_PORT}:${SERVER_PORT}"
+      # application environment
+      environment:
+         SERVICE_NAME: task-management-services
+         SERVICE_TAGS: ${APP_SERVICE}
+         NODE_ENV: ${NODE_ENV}
+         SERVICE_DB_HOST: ${DATABASE_HOST}:${DATABASE_PORT}
+         SERVICE_DB_USER: ${DATABASE_USERNAME}
+         SERVICE_DB_PASSWORD: ${DATABASE_PASSWORD}
+         DATABASE_URL: ${DATABASE_URL}
+         REDIS_URL: ${REDIS_URL}
+      volumes:
+         - ./:/var/www/task-management:delegated
+         - /var/www/task-management/node_modules
+      networks:
+         - task-management-network
+
+   db:
+      image: mariadb
+      restart: always
+      volumes:
+         - db_data:/var/lib/mysql
+      environment:
+         MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+         MYSQL_USER: ${DATABASE_USERNAME}
+         MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+         MYSQL_DATABASE: ${DATABASE_NAME}
+      expose:
+         - "${DATABASE_PORT}"
+      ports:
+         - "${DATABASE_PORT}:${DATABASE_PORT}"
+      networks:
+         - task-management-network
+
+   redis:
+      image: redis:6.0-rc1
+      container_name: redis
+      # execute the command once start redis container
+      command:
+         [
+            "redis-server",
+            "--loglevel ${REDIS_LOGLEVEL:-warning}",
+            "--databases 10",
+            "--save 900 1",
+            "--save 300 10",
+            "--save 60 10000",
+            "--maxmemory ${REDIS_MAXMEM:-200mb}",
+            "--maxmemory-policy ${REDIS_POLICY:-noeviction}",
+            "--notify-keyspace-events KEA",
+            "--requirepass ${REDIS_PASSWORD}",
+         ]
+      environment:
+         REDIS_PASS: ${REDIS_PASSWORD}
+      volumes:
+         - red_data:/var/lib/redis:delegated
+      restart: always
+      ports:
+         - "${REDIS_PORT}:${REDIS_PORT}"
+      networks:
+         - task-management-network
+   #Docker Networks
+networks:
+   task-management-network:
+      driver: bridge
+# save (persist) data
+volumes:
+   db_data: {}
+   red_data: {}

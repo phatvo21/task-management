@@ -1,0 +1,15 @@
+.idea/
+.idea/vcs.xml
+.vscode/
+node_modules/
+build/
+dist/
+tmp/
+temp/
+.nyc_output/
+src/.DS_Store/
+.coverage/
+.env
+error.log
+info.log
+gcloud-key.json
