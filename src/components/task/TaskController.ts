@@ -9,7 +9,7 @@ import { ResponseMessage } from "components/task/constants/ResponseMessage";
 import { config } from "constants/Config";
 import { ErrorType } from "constants/ErrorType";
 import { TaskQueueValidate } from "components/task/validations/TaskQueueValidate";
-import { RemoveDraftTask } from "components/task/PublisherTask";
+import { RemoveDraftTask } from "components/task/RemoveDraftTask";
 import { ITaskService } from "components/task/interfaces/ITaskService";
 import { TaskService } from "components/task/TaskService";
 import { TaskModel } from "components/task/models/TaskModel";
