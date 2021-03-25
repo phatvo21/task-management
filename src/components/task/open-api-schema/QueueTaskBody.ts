@@ -1,5 +1,3 @@
-export const createTaskBody = {
-   title: "This is title",
+export const queueTask = {
    taskIdentity: "ABCS_1000",
-   description: "This is long description",
 };

@@ -11,34 +11,66 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
    }
 
    public create(data: T | any): Promise<T> {
-      return this.entity.save(data);
+      try {
+         return this.entity.save(data);
+      } catch (err) {
+         throw err;
+      }
    }
 
    public update(data: T | any, id: number): Promise<T | UpdateResult> {
-      return this.entity.update(id, data);
+      try {
+         return this.entity.update(id, data);
+      } catch (err) {
+         throw err;
+      }
    }
 
    public multipleCreate(data: T[] | any[]): Promise<T[]> {
-      return this.entity.save(data);
+      try {
+         return this.entity.save(data);
+      } catch (err) {
+         throw err;
+      }
    }
 
    public findOneById(id: number): Promise<T> {
-      return this.entity.findOne(id);
+      try {
+         return this.entity.findOne(id);
+      } catch (err) {
+         throw err;
+      }
    }
 
    public findByCondition(filterCondition: any): Promise<T> {
-      return this.entity.findOne({ where: filterCondition });
+      try {
+         return this.entity.findOne({ where: filterCondition });
+      } catch (err) {
+         throw err;
+      }
    }
 
    public findWithRelations(relations: any): Promise<T[]> {
-      return this.entity.find(relations);
+      try {
+         return this.entity.find(relations);
+      } catch (err) {
+         throw err;
+      }
    }
 
    public findAll(): Promise<[T[], number]> {
-      return this.entity.findAndCount();
+      try {
+         return this.entity.findAndCount();
+      } catch (err) {
+         throw err;
+      }
    }
 
    public remove(id: string): Promise<DeleteResult> {
-      return this.entity.delete(id);
+      try {
+         return this.entity.delete(id);
+      } catch (err) {
+         throw err;
+      }
    }
 }
