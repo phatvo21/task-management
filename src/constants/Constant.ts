@@ -1,3 +1,3 @@
 export enum Constant {
-   Hmac = "hmac",
+  Hmac = 'hmac',
 }

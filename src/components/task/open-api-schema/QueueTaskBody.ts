@@ -1,3 +1,3 @@
 export const queueTask = {
-   taskIdentity: "ABCS_1000",
+  taskIdentity: 'ABCS_1000',
 };

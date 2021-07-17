@@ -1,7 +1,7 @@
-import { CronJob } from "cron";
+import {CronJob} from 'cron';
 
 export interface CommandInterface {
-   signature: string;
+  signature: string;
 
-   handle(): CronJob;
+  handle(): CronJob;
 }

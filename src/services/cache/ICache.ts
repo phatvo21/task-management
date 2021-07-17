@@ -1,9 +1,9 @@
-import { PushDataModel } from "services/cache/PushDataModel";
+import {PushDataModel} from 'services/cache/PushDataModel';
 
 export interface ICache {
-   push(data: string, key: string): Promise<PushDataModel>;
+  push(data: string, key: string): Promise<PushDataModel>;
 
-   findOne(key: string): Promise<string>;
+  findOne(key: string): Promise<string>;
 
-   remove(key: string): Promise<any>;
+  remove(key: string): Promise<any>;
 }

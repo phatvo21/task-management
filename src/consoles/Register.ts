@@ -1,13 +1,13 @@
-import { CommandInterface } from "consoles/interface/CommandInterface";
+import {CommandInterface} from 'consoles/interface/CommandInterface';
 
 export class Register {
-   private readonly command: CommandInterface;
+  private readonly command: CommandInterface;
 
-   constructor(command: CommandInterface) {
-      this.command = command;
-   }
+  constructor(command: CommandInterface) {
+    this.command = command;
+  }
 
-   public register(): CommandInterface {
-      return this.command;
-   }
+  public register(): CommandInterface {
+    return this.command;
+  }
 }

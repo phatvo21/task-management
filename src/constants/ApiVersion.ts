@@ -1,3 +1,3 @@
 export enum ApiVersion {
-   Version = "/api/v1/",
+  Version = '/api/v1/',
 }

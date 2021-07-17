@@ -1,49 +1,25 @@
-import * as express from "express";
-import { Express } from "express";
-import "reflect-metadata";
-import { useContainer } from "routing-controllers";
-import { Container } from "typedi";
-import { Middleware } from "middlewares/Middleware";
-import { RouteHandle } from "utils/Utils";
-import { ServerHandler } from "utils/ServerHandler";
-import * as dotenv from "dotenv";
-require("events").EventEmitter.prototype._maxListeners = 100;
-import { OpenApiConfiguration } from "utils/OpenApiConfiguration";
-import { config } from "constants/Config";
-import { CacheStorage } from "utils/cache-storage/CacheStorage";
-import { CacheService } from "services/CacheService";
-import { CacheServiceModel } from "utils/cache-storage/model/CacheServiceModel";
-import { Kernel } from "consoles/Kernel";
-import { connectToDatabase } from "databases/Connection";
+require('./register-module-alias');
+import 'reflect-metadata';
+import {ServerHandler} from 'utils/ServerHandler';
+require('events').EventEmitter.prototype._maxListeners = 100;
+import {config} from 'constants/Config';
+import {CacheStorage} from 'utils/cache-storage/CacheStorage';
+import {CacheService} from 'services/CacheService';
+import {CacheServiceModel} from 'utils/cache-storage/model/CacheServiceModel';
+import {Kernel} from 'consoles/Kernel';
+import {createApp} from './app';
 
-export class Server {
-   public server: Express = express();
+/**
+ * Start an Express server and installs signal handlers on the
+ * process for graceful shutdown.
+ */
+(async () => {
+  const app = await createApp();
+  const server = ServerHandler.createExpressServer(app);
 
-   constructor() {
-      this.serverRendering();
-   }
-
-   public serverRendering(): void {
-      dotenv.config();
-
-      RouteHandle.applyMiddleware(Middleware.handle(), this.server);
-      RouteHandle.enableCors(this.server);
-      useContainer(Container);
-      const routingControllersOptions = RouteHandle.RoutingControllersOptions();
-      RouteHandle.applyRoutes(this.server, routingControllersOptions);
-      OpenApiConfiguration.openApiConfiguration(this.server, routingControllersOptions);
-
-      const server = ServerHandler.createExpressServer(this.server);
-      connectToDatabase()
-         .then(() => {
-            ServerHandler.listenServer(this.server, server);
-            const cache = new CacheStorage(config.redis.url);
-            const cacheService = new CacheService(new CacheServiceModel(cache, config.configCache));
-            this.server.set(config.cacheService, cacheService);
-            Kernel.getInstance().execute();
-         })
-         .catch((err) => {
-            server.emit("error", err);
-         });
-   }
-}
+  ServerHandler.listenServer(app, server);
+  const cache = new CacheStorage(config.redis.url);
+  const cacheService = new CacheService(new CacheServiceModel(cache, config.configCache));
+  app.set(config.cacheService, cacheService);
+  Kernel.getInstance().execute();
+})();

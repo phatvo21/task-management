@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString, validate, ValidationError } from "class-validator";
+import {IsNotEmpty, IsString, validate, ValidationError} from 'class-validator';
 
 export class TaskQueueDto {
-   @IsNotEmpty()
-   @IsString()
-   taskIdentity: string;
+  @IsNotEmpty()
+  @IsString()
+  taskIdentity: string;
 
-   constructor(dto: { taskIdentity: string }) {
-      this.taskIdentity = dto.taskIdentity;
-   }
+  constructor(dto: {taskIdentity: string}) {
+    this.taskIdentity = dto.taskIdentity;
+  }
 
-   public validate(): Promise<ValidationError[]> {
-      return validate(this);
-   }
+  public validate(): Promise<ValidationError[]> {
+    return validate(this);
+  }
 }

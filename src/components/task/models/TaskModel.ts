@@ -1,5 +1,5 @@
 export interface TaskModel {
-   title: string;
-   taskIdentity: string;
-   description: string;
+  title: string;
+  taskIdentity: string;
+  description: string;
 }
