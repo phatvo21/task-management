@@ -1,12 +1,12 @@
 apps:
-   - script: ./dist/app.js
-     name: task-management-app
-     watch: true
-     instances: max
-     exec_mode: cluster
-     env:
-        PORT: 3005
-        NODE_ENV: development
-     env_production:
-        NODE_PORT: 3005
-        NODE_ENV: production
+  - script: ./dist/app.js
+    name: task-management-app
+    watch: true
+    instances: max
+    exec_mode: cluster
+    env:
+      PORT: 3005
+      NODE_ENV: development
+    env_production:
+      NODE_PORT: 3005
+      NODE_ENV: production

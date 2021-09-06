@@ -13,7 +13,7 @@ import {createApp} from './app';
  * Start an Express server and installs signal handlers on the
  * process for graceful shutdown.
  */
-(async () => {
+export default (async () => {
   const app = await createApp();
   const server = ServerHandler.createExpressServer(app);
 

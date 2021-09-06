@@ -1,0 +1,13 @@
+TaskQueue:
+  description: User send a task queue
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: string
+            example: 'This task has been queued'
+          status:
+            type: number
+            example: 200

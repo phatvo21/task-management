@@ -1,6 +1,7 @@
-import {DeleteResult, Repository, UpdateResult} from 'typeorm';
+import {DeleteResult, FindManyOptions, Repository, UpdateResult} from 'typeorm';
 import {getManager} from 'typeorm';
 import {BaseInterfaceRepository} from './base.interface.repository';
+import {FindOneOptions} from 'typeorm/browser';
 
 export abstract class BaseAbstractRepository<T> implements BaseInterfaceRepository<T> {
   private entity: Repository<T>;
@@ -42,7 +43,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
   }
 
-  public findByCondition(filterCondition: any): Promise<T> {
+  public findByCondition(filterCondition: FindOneOptions): Promise<T> {
     try {
       return this.entity.findOne({where: filterCondition});
     } catch (err) {
@@ -50,7 +51,7 @@ export abstract class BaseAbstractRepository<T> implements BaseInterfaceReposito
     }
   }
 
-  public findWithRelations(relations: any): Promise<T[]> {
+  public findWithRelations(relations: FindManyOptions): Promise<T[]> {
     try {
       return this.entity.find(relations);
     } catch (err) {

@@ -1,0 +1,19 @@
+AuthLogin:
+  description: User's access token
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              token:
+                type: string
+                example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+              status:
+                type: boolean
+                example: true
+          status:
+            type: number
+            example: 200

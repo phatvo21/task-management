@@ -4,7 +4,6 @@ import {logger} from 'logging/Logger';
 @Middleware({type: 'after'})
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {
   public error(error: any, req: any, res: any, next: (err?: any) => any): any {
-    console.log(error);
     if (!error.message[0].constraints) {
       logger.info(error, error.type);
       return res.status(error.status).send({

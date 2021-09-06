@@ -1,30 +1,30 @@
 {
-   "compilerOptions": {
-      "lib": ["es5", "es6", "dom"],
-      "target": "es5",
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "rootDir": "./src",
-      "outDir": "./dist",
-      "baseUrl": "./src",
-      "typeRoots": ["node_modules/@types"],
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "sourceMap": true,
-      "paths": {
-         "utils/*": ["utils/*"],
-         "services/*": ["services/*"],
-         "constants/*": ["constants/*"],
-         "consoles/*": ["consoles/*"],
-         "middlewares/*": ["middlewares/*"],
-         "logging/*": ["logging/*"],
-         "helpers/*": ["helpers/*"],
-         "components/*": ["components/*"],
-         "databases/*": ["databases/*"],
-         "repositories/*": ["repositories/*"]
-      },
-      "plugins": [{ "transform": "typescript-transform-paths" }]
-   },
-   "include": ["src"],
-   "exclude": ["node_modules", "coverage", "dist", "test"]
+  "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "typeRoots": ["node_modules/@types"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "paths": {
+      "utils/*": ["utils/*"],
+      "services/*": ["services/*"],
+      "constants/*": ["constants/*"],
+      "consoles/*": ["consoles/*"],
+      "middlewares/*": ["middlewares/*"],
+      "logging/*": ["logging/*"],
+      "helpers/*": ["helpers/*"],
+      "components/*": ["components/*"],
+      "databases/*": ["databases/*"],
+      "repositories/*": ["repositories/*"]
+    },
+    "plugins": [{"transform": "typescript-transform-paths"}]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "coverage", "dist", "test", "**/*test.ts"]
 }

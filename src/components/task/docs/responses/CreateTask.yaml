@@ -1,0 +1,13 @@
+CreateTask:
+  description: User create a task
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: string
+            example: 'Task has been created and stored as draft'
+          status:
+            type: number
+            example: 201

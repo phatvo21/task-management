@@ -1,0 +1,50 @@
+/api/v1/tasks/queue:
+  post:
+    summary: Send a task to queue
+    description: Users can send a task to queue using the information through this endpoint
+    tags:
+      - Task
+    parameters:
+      - in: header
+        required: true
+        name: HTTP_HMAC
+        schema:
+          type: string
+        description: Hmac validation.
+        example: 7283145dff4a4c7d642abb264f344b4170dd0f7fadda0e527796
+      - in: header
+        required: true
+        name: Authorization
+        schema:
+          type: string
+        description: Access token validation.
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+      - in: body
+        required: true
+        name: Request Body
+        description: credentials
+        schema:
+          type: object
+          properties:
+            taskIdentity:
+              type: string
+              example: ABCS_1000
+            required:
+              - taskIdentity
+    responses:
+      '200':
+        $ref: '#/components/responses/TaskQueue'
+      '400':
+        description: |
+          Please refer to the error code list.
+          | errorCode | explanation |
+          |-----------|-------------|
+          | bad-request | The request fields is invaliad |
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: bad-request

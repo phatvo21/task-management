@@ -1,0 +1,34 @@
+TaskStatus:
+  description: User's task status
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              id:
+                type: number
+                example: 1
+              title:
+                type: string
+                example: 'This is title'
+              description:
+                type: string
+                example: 'This is long description'
+              taskIdentity:
+                type: string
+                example: 'ABCS_1000'
+              status:
+                type: string
+                example: 'completed'
+              createdAt:
+                type: string
+                example: '2021-09-04 16:31:37'
+              updatedAt:
+                type: string
+                example: '2021-09-04 16:31:37'
+          status:
+            type: number
+            example: 200

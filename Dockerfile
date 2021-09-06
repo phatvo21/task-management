@@ -1,27 +1,24 @@
-FROM node:12-alpine
+# Instal package dependencies
+FROM node:12-alpine AS dependency
 
-RUN npm install pm2 -g
+WORKDIR /task-management
 
-RUN mkdir -p /var/www/task-management
-WORKDIR /var/www/task-management
+COPY package*.json ./
+RUN npm ci
 
-ENV PATH /var/www/task-management/node_modules/.bin:$PATH
-RUN adduser --disabled-password phatvt
+# Build source
+FROM dependency AS base
+COPY . .
 
-ARG NODE_ENV=$NODE_ENV
-ENV NODE_ENV $NODE_ENV
-
-# Copy existing application directory contents
-COPY . /var/www/task-management
-COPY package.json /var/www/task-management
-COPY package-lock.json /var/www/task-management
-
-RUN chown -R phatvt:phatvt /var/www/task-management
-USER phatvt
-
-RUN npm i --no-optional && npm cache clean --force
+# Build source
+FROM base AS build
 RUN npm run build
 
-EXPOSE 3005
+# Ship compiled sources
+FROM dependency
 
-CMD ["pm2-runtime", "dist/app.js"]
+COPY --from=build /task-management/dist ./dist
+
+RUN npm prune --production
+
+CMD ["node", "./dist/server.js"]

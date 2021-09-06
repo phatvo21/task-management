@@ -14,9 +14,6 @@ import {ITaskService} from 'components/task/interfaces/ITaskService';
 import {TaskService} from 'components/task/TaskService';
 import {TaskModel} from 'components/task/models/TaskModel';
 import {ThrowResponse} from 'helpers/ThrowResponse';
-import {createTaskBody} from 'components/task/open-api-schema/CreateTaskBody';
-import {OpenAPI} from 'routing-controllers-openapi';
-import {queueTask} from 'components/task/open-api-schema/QueueTaskBody';
 import {Authorization} from 'middlewares/Authorization';
 
 @UseBefore(Authorization)
@@ -35,47 +32,6 @@ export class TaskController {
   @UseBefore(CreateTaskValidate)
   @UseAfter(DraftTask)
   @Post()
-  @OpenAPI({
-    description: 'Create Task',
-    parameters: [
-      {
-        in: 'header',
-        name: 'Authorization',
-        required: true,
-        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-        schema: {
-          type: 'string',
-        },
-      },
-      {
-        in: 'header',
-        name: 'HTTP_HMAC',
-        required: true,
-        example:
-          '7283145dff4a4c7d642abb264f344b4170dd0f7fadda0e52779649a45ec150b1de8be4ff608c82f13d173f9ecbf479691c7e0058bf55168a179c3b50149569d9',
-        schema: {
-          type: 'string',
-        },
-      },
-    ],
-    requestBody: {
-      description: 'Create Task Request Body',
-      content: {
-        'application/json': {
-          example: createTaskBody,
-        },
-      },
-      required: true,
-    },
-    responses: {
-      400: {
-        description: 'Bad request',
-      },
-      500: {
-        description: 'Internal server',
-      },
-    },
-  })
   public async createTask<T>(@Res() res: Response, @Req() req: Request, @Body() data: TaskModel): Promise<Response<T>> {
     const {app} = req;
     const service = app.get(config.cacheService).taskCache;
@@ -97,47 +53,6 @@ export class TaskController {
   @UseBefore(TaskQueueValidate)
   @UseAfter(RemoveDraftTask)
   @Post('/queue')
-  @OpenAPI({
-    description: 'Queue Task',
-    parameters: [
-      {
-        in: 'header',
-        name: 'Authorization',
-        required: true,
-        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-        schema: {
-          type: 'string',
-        },
-      },
-      {
-        in: 'header',
-        name: 'HTTP_HMAC',
-        required: true,
-        example:
-          '7283145dff4a4c7d642abb264f344b4170dd0f7fadda0e52779649a45ec150b1de8be4ff608c82f13d173f9ecbf479691c7e0058bf55168a179c3b50149569d9',
-        schema: {
-          type: 'string',
-        },
-      },
-    ],
-    requestBody: {
-      description: 'Queue Task Request Body',
-      content: {
-        'application/json': {
-          example: queueTask,
-        },
-      },
-      required: true,
-    },
-    responses: {
-      400: {
-        description: 'Bad request',
-      },
-      500: {
-        description: 'Internal server',
-      },
-    },
-  })
   public async taskQueue<T>(
     @Res() res: Response,
     @Req() req: Request,
@@ -161,44 +76,6 @@ export class TaskController {
 
   @HttpCode(httpCode.Success)
   @Get('/:taskIdentity/status')
-  @OpenAPI({
-    description: 'Task Status',
-    parameters: [
-      {
-        in: 'path',
-        name: 'taskIdentity',
-        required: true,
-        example: 'ABCS_1000',
-        schema: {
-          type: 'string',
-        },
-      },
-      {
-        in: 'header',
-        name: 'Authorization',
-        required: true,
-        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
-        schema: {
-          type: 'string',
-        },
-      },
-      {
-        in: 'header',
-        name: 'HTTP_HMAC',
-        required: true,
-        example:
-          '7283145dff4a4c7d642abb264f344b4170dd0f7fadda0e52779649a45ec150b1de8be4ff608c82f13d173f9ecbf479691c7e0058bf55168a179c3b50149569d9',
-        schema: {
-          type: 'string',
-        },
-      },
-    ],
-    responses: {
-      500: {
-        description: 'Internal server',
-      },
-    },
-  })
   public async taskStatus<T>(@Param('taskIdentity') taskIdentity: string, @Res() res: Response): Promise<Response<T>> {
     const task = await this.taskService.findOneByTaskIdentity(taskIdentity);
     if (!task) {
@@ -208,7 +85,7 @@ export class TaskController {
         type: ErrorType.NotFound,
       });
     }
-    const result = new ThrowResponse(task, httpCode.Created);
+    const result = new ThrowResponse(task, httpCode.Success);
     return BaseHttpResponse.onResult(res, result);
   }
 }

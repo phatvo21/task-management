@@ -1,0 +1,28 @@
+AuthRegister:
+  description: User's credentials
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          data:
+            type: object
+            properties:
+              id:
+                type: number
+                example: 1
+              email:
+                type: string
+                example: test@gmail.com
+              name:
+                type: string
+                example: Test
+              createdAt:
+                type: string
+                example: '2021-09-04 16:31:37'
+              updatedAt:
+                type: string
+                example: '2021-09-04 16:31:37'
+          status:
+            type: number
+            example: 201

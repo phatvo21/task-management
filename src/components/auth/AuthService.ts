@@ -9,7 +9,7 @@ import {HttpCode as httpCode, HttpCode} from 'constants/HttpCode';
 import {compare} from 'bcrypt';
 import {ResponseMessage} from 'components/auth/constants/ResponseMessage';
 import {ErrorType} from 'constants/ErrorType';
-import {Helpers} from 'helpers/Helpers';
+import {currentDateTime, generateAccessToken} from 'helpers/Helpers';
 
 @Service('auth-service.factory')
 export class AuthService implements IAuthService {
@@ -23,11 +23,12 @@ export class AuthService implements IAuthService {
   }
 
   public async register(data: UserModel): Promise<ThrowResponse> {
-    const currentDate = Helpers.currentDateTime();
+    const currentDate = currentDateTime();
+    const {email, password, name} = data;
     const userEntity = new Users();
-    userEntity.email = data.email;
-    userEntity.password = data.password;
-    userEntity.name = data.name;
+    userEntity.email = email;
+    userEntity.password = password;
+    userEntity.name = name;
     userEntity.createdAt = currentDate;
     userEntity.updatedAt = currentDate;
     const result = await this.userRepository.create(userEntity);
@@ -37,7 +38,8 @@ export class AuthService implements IAuthService {
 
   public async login(data: UserModel): Promise<ThrowResponse> {
     const user = await this.findUserByEmail(data.email);
-    const isValidPass = compare(data.password, user.password);
+    const {id, email, password} = user;
+    const isValidPass = await compare(data.password, password);
     if (!user || !isValidPass) {
       return new ThrowResponse(
         {
@@ -48,13 +50,13 @@ export class AuthService implements IAuthService {
         HttpCode.UnAuthorized,
       );
     }
-    const token = Helpers.generateAccessToken({
-      id: user.id,
-      email: user.email,
+    const token = generateAccessToken({
+      id,
+      email,
     });
     return new ThrowResponse(
       {
-        token: token,
+        token,
         status: true,
       },
       HttpCode.Success,

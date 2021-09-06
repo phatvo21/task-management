@@ -3,9 +3,9 @@ import {MysqlDriver} from 'typeorm/driver/mysql/MysqlDriver';
 import {Pool} from 'mysql';
 import {OrmConfig} from 'constants/TypeormConfig';
 import {logger} from 'logging/Logger';
-import {Helpers} from 'helpers/Helpers';
+import {sleep} from 'helpers/Helpers';
 
-// Handles unstable/intermitten connection lost to DB
+// Handles unstable connection lost to DB
 function connectionGuard(connection: Connection) {
   // Access underlying pg driver
   if (connection.driver instanceof MysqlDriver) {
@@ -29,7 +29,7 @@ function connectionGuard(connection: Connection) {
 
         if (!connection.isConnected) {
           // Throttle retry
-          await Helpers.sleep(500);
+          await sleep(500);
         }
       }
     });
@@ -54,7 +54,7 @@ export async function connect() {
 
     if (!isConnected) {
       // Throttle retry
-      await Helpers.sleep(500);
+      await sleep(500);
     }
   }
 

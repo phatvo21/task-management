@@ -4,7 +4,7 @@ import {ITaskRepository} from 'components/task/interfaces/ITaskRepository';
 import {Inject, Service} from 'typedi';
 import {TaskRepository} from 'repositories/TaskRepository';
 import {TaskStatus} from 'components/task/constants/TaskStatus';
-import {Helpers} from 'helpers/Helpers';
+import {currentDateTime} from 'helpers/Helpers';
 import {ResponseMessage} from 'components/task/constants/ResponseMessage';
 import {HttpCode} from 'constants/HttpCode';
 import {TaskModel} from 'components/task/models/TaskModel';
@@ -22,7 +22,7 @@ export class TaskService implements ITaskService {
   }
 
   public async queueTask(body: TaskModel): Promise<ThrowResponse> {
-    const currentDate = Helpers.currentDateTime();
+    const currentDate = currentDateTime();
     const createBody = {
       title: body.title,
       taskIdentity: body.taskIdentity,

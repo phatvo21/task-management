@@ -12,4 +12,5 @@ src/.DS_Store/
 .env
 error.log
 info.log
-gcloud-key.json
+gcloud-key.
+/coverage/

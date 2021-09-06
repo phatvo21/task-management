@@ -1,0 +1,45 @@
+/api/v1/tasks/:taskIdentity/status:
+  get:
+    summary: Get a task status
+    description: Users can get a task status through this endpoint
+    tags:
+      - Task
+    parameters:
+      - in: header
+        required: true
+        name: HTTP_HMAC
+        schema:
+          type: string
+        description: Hmac validation.
+        example: 7283145dff4a4c7d642abb264f344b4170dd0f7fadda0e527796
+      - in: header
+        required: true
+        name: Authorization
+        schema:
+          type: string
+        description: Access token validation.
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+      - in: path
+        required: true
+        name: taskIdentity
+        schema:
+          type: string
+        description: Task identity code.
+        example: ABCS_1000
+    responses:
+      '200':
+        $ref: '#/components/responses/TaskStatus'
+      '404':
+        description: |
+          Please refer to the error code list.
+          | errorCode | explanation |
+          |-----------|-------------|
+          | not-found | There is no task found |
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                errorCode:
+                  type: string
+                  example: not-found
