@@ -1,5 +1,5 @@
 apps:
-  - script: ./dist/app.js
+  - script: ./dist/server.js
     name: task-management-app
     watch: true
     instances: max
