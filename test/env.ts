@@ -8,13 +8,13 @@ process.env.NODE_ENV = 'testing';
 process.env.SERVER_TIMEOUT = '1080000';
 // SQL
 process.env.SQL_HOST = process.env.SQL_HOST ?? '127.0.0.1';
-process.env.SQL_USER = 'root';
+process.env.SQL_USER = process.env.SQL_USER ?? 'root';
 process.env.SQL_PASSWORD = process.env.SQL_PASSWORD ?? '';
-process.env.SQL_DB = 'task_management';
+process.env.SQL_DB = process.env.SQL_DB ?? 'task_management';
 // Redis
 process.env.REDIS_PORT = '6379';
 process.env.REDIS_HOST = process.env.REDIS_HOST ?? '127.0.0.1';
-process.env.REDIS_PASSWORD = '';
+process.env.REDIS_PASSWORD = process.env.REDIS_PASSWORD ?? '';
 process.env.REDIS_DB = '1';
 
 //JWT

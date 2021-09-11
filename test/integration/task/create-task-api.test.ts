@@ -11,12 +11,21 @@ import {getAccessToken} from '../../stub/getAccessToken';
 const {MockCache} = require('../../__mocks__/main');
 // @ts-ignore
 import {CacheService} from '../../../src/services/CacheService';
+// @ts-ignore
+import {clearDB, reCreateDB} from '../../hooks';
+import {runMigration} from '../../../src/databases/RunMigration';
 
 const mockData = {'192.168.0.1': '', '8.8.8.8': '', '0.0.0.0': ''};
 
 let app;
 beforeAll(async () => {
   app = await createApp();
+  await reCreateDB();
+  await runMigration();
+});
+
+afterAll(async () => {
+  await clearDB();
 });
 
 const cache: any = new MockCache(mockData);

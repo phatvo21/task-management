@@ -6,10 +6,19 @@ import * as faker from 'faker';
 // @ts-ignore
 import {factory} from '../../../test/factory/factory';
 import {genSaltSync, hashSync} from 'bcrypt';
+// @ts-ignore
+import {clearDB, reCreateDB} from '../../hooks';
+import {runMigration} from '../../../src/databases/RunMigration';
 
 let app;
 beforeAll(async () => {
   app = await createApp();
+  await reCreateDB();
+  await runMigration();
+});
+
+afterAll(async () => {
+  await clearDB();
 });
 
 const apiUrl = '/api/v1/auth/login';

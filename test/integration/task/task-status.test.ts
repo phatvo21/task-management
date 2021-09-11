@@ -7,10 +7,19 @@ import * as faker from 'faker';
 import {factory} from '../../../test/factory/factory';
 // @ts-ignore
 import {getAccessToken} from '../../stub/getAccessToken';
+// @ts-ignore
+import {clearDB, reCreateDB} from '../../hooks';
+import {runMigration} from '../../../src/databases/RunMigration';
 
 let app;
 beforeAll(async () => {
   app = await createApp();
+  await reCreateDB();
+  await runMigration();
+});
+
+afterAll(async () => {
+  await clearDB();
 });
 
 describe('GET - /:taskIdentity/status', () => {
