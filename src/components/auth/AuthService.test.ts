@@ -10,8 +10,10 @@ import {UserModel} from './models/UserModel';
 import * as helpers from 'helpers/Helpers';
 import {genSaltSync, hashSync} from 'bcrypt';
 
+// Init Global hook before the test
 hooks();
 
+// Mock the UserRepository class
 jest.mock('repositories/UserRepository', () => {
   const mUserRepository = {
     create: jest.fn(),
@@ -33,24 +35,34 @@ describe('AuthService', () => {
   let generateAccessMock;
   let hash = hashSync(password, genSaltSync(10));
 
+  // Prepare user's credentials before creating
   const createBody: UserModel = {
     name,
     email,
     password,
   };
 
+  // Prepare user's credentials before login
   const loginBody: UserModel = {
     email,
     password,
   };
 
+  // Build and mock the test data before the testing
   beforeAll(async () => {
+    // Create a user in users database table using factory
     user = await factory.build('user', {email, password: hash, name, createdAt, updatedAt: createdAt});
+
+    // Init UserRepository instance
     userRepository = new UserRepository();
 
+    // Init AuthService instance
     authService = new AuthService(userRepository);
 
+    // Mock values return for create method inside UserRepository class
     userRepository.create = jest.fn().mockReturnValue(user);
+
+    // Mock values return for findByCondition method inside UserRepository class
     userRepository.findByCondition = jest.fn().mockReturnValue({
       id: user.id,
       email,
@@ -59,10 +71,15 @@ describe('AuthService', () => {
       createdAt,
       updatedAt: createdAt,
     });
+
+    // Mock values return for currentDateTime function inside helpers
     currentDateTimeMock = jest.spyOn(helpers, 'currentDateTime').mockReturnValue(createdAt);
+
+    // Mock values return for generateAccessToken function inside helpers
     generateAccessMock = jest.spyOn(helpers, 'generateAccessToken').mockReturnValue(token);
   });
 
+  // Performs create user test
   it('should register a new user', async () => {
     const {
       data: {email, password, name},
@@ -76,6 +93,7 @@ describe('AuthService', () => {
     expect(name).toEqual(user.name);
   });
 
+  // Performs user's login using credentials test
   it("should login using user's credentials", async () => {
     const {data, status} = await authService.login(loginBody);
     expect(userRepository.findByCondition).toHaveBeenCalledTimes(1);

@@ -11,31 +11,41 @@ import {clearDB, reCreateDB} from '../../hooks';
 import {runMigration} from '../../../src/databases/RunMigration';
 
 let app;
+// Init application and database before testing
 beforeAll(async () => {
+  // Init App
   app = await createApp();
+  // Recreate the database
   await reCreateDB();
+  // Run the database migration
   await runMigration();
 });
 
+// Clear the database after the test
 afterAll(async () => {
+  // Clear the database
   await clearDB();
 });
 
+// Login endpoint
 const apiUrl = '/api/v1/auth/login';
 
 describe('POST - auth/login', () => {
   let body;
   let user;
+  // User credentials
   const password = faker.internet.password();
   const email = faker.internet.email();
   const name = faker.lorem.word();
   const hash = hashSync(password, genSaltSync(10));
 
   beforeAll(async () => {
+    // Create a user before all the tests
     user = await factory.build('user', {email, password: hash, name});
   });
 
   beforeEach(async () => {
+    // Prepare the request body
     body = {
       password,
       email,

@@ -14,19 +14,22 @@ export function hooks() {
   let app;
 
   beforeAll(async () => {
+    // Init the server
     app = await Server.default;
+    // Recreate the database
     await reCreateDB();
+    // Run the migration
     await runMigration();
   });
 
-  beforeEach(async () => {});
-
-  afterEach(async () => {});
-
   afterAll(async () => {
+    // Clear all test mocks
     jest.resetAllMocks();
+    // Clear all test modules
     jest.resetModules();
+    // Clear all test data in the database
     await clearDB();
+    // Clear all the data in cache
     const parsed = new CacheCredentials(config.redis.url);
     const ioRedis = new IORedis({...parsed});
     await ioRedis.flushdb();

@@ -15,9 +15,10 @@ services:
       - redis
     environment:
       SQL_HOST: mysql
-      REDIS_HOST: redis
       SQL_PASSWORD: root
+      REDIS_HOST: redis
 
+  # Mysql image
   mysql:
     image: mysql:5.7
     environment:
@@ -26,6 +27,7 @@ services:
     expose:
       - '3306'
 
+  # Mysql image
   redis:
     image: redis:6-alpine
     expose:

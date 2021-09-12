@@ -1,4 +1,4 @@
-const Ioredis = require('ioredis-mock');
+import * as Ioredis from 'ioredis-mock';
 import {Redis, KeyType, ValueType} from 'ioredis';
 
 export class MockCache {

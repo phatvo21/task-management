@@ -10,21 +10,29 @@ import {clearDB, reCreateDB} from '../../hooks';
 import {runMigration} from '../../../src/databases/RunMigration';
 
 let app;
+// Init application and database before testing
 beforeAll(async () => {
+  // Init App
   app = await createApp();
+  // Recreate the database
   await reCreateDB();
+  // Run the database migration
   await runMigration();
 });
 
+// Clear the database after the test
 afterAll(async () => {
+  // Clear the database
   await clearDB();
 });
 
+// Login endpoint
 const apiUrl = '/api/v1/auth/register';
 
 describe('POST - auth/register', () => {
   let body;
   beforeEach(async () => {
+    // Prepare the request body for register
     body = {
       name: faker.lorem.word(),
       password: faker.internet.password(),

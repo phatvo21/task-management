@@ -3,7 +3,7 @@ import {taskFactoryWorker} from './workers/task';
 import {Tasks} from 'databases/entities/Tasks';
 
 /**
- * Defines all the user schematics for a factory
+ * Defines all the task schematics for a factory
  * @param {object} factory - Factory-Girl factory object
  */
 export function defineTaskFactory(factory) {

@@ -11,10 +11,13 @@ import {factory} from '../../../test/factory/factory';
 import {hooks} from '../../../test/hooks';
 import {UserModel} from './models/UserModel';
 
+// Init Global hook before the test
 hooks();
 
+// Init mock request and response from interceptor
 const {mockRequest, mockResponse} = interceptor;
 
+// Mock the AuthService class
 jest.mock('components/auth/AuthService', () => {
   const mAuthService = {
     register: jest.fn(),
@@ -24,6 +27,7 @@ jest.mock('components/auth/AuthService', () => {
   return {AuthService: jest.fn(() => mAuthService)};
 });
 
+// Mock the UserRepository class
 jest.mock('repositories/UserRepository', () => {
   const mUserRepository = {
     create: jest.fn(),
@@ -44,27 +48,39 @@ describe('AuthController', () => {
   const name = faker.lorem.word();
   let user;
 
+  // Prepare user's credentials before registering
   const createBody: UserModel = {
     name,
     email,
     password,
   };
 
+  // Prepare user's credentials before login
   const loginBody: UserModel = {
     email,
     password,
   };
 
+  // Build and mock the test data before the testing
   beforeAll(async () => {
+    // Create a user in users database table using factory
     user = await factory.build('user', {email, password, name});
+
+    // Assignee the defined variables
     req = mockRequest();
     res = mockResponse();
     token = faker.datatype.uuid();
+
+    // Init UserRepository instance
     userRepository = new UserRepository();
 
+    // Init AuthService instance
     authService = new AuthService(userRepository);
 
+    // Mock values return for register method inside AuthService class
     (authService.register as jest.MockedFunction<any>).mockReturnValue({data: user, status: 201});
+
+    // Mock values return for login method inside AuthService class
     (authService.login as jest.MockedFunction<any>).mockReturnValue({
       data: {
         token,
@@ -73,9 +89,11 @@ describe('AuthController', () => {
       status: 200,
     });
 
+    // Init AuthController instance
     authController = new AuthController(authService);
   });
 
+  // Performs the user's register test
   it('should register a new user', async () => {
     (authService.findUserByEmail as jest.MockedFunction<any>).mockReturnValue();
     const result = await authController.userRegister(res, req, createBody);
@@ -86,6 +104,7 @@ describe('AuthController', () => {
     expect(result.status).toBeCalledWith(201);
   });
 
+  // Performs the user's login test
   it("should login using user's credentials", async () => {
     (authService.findUserByEmail as jest.MockedFunction<any>).mockReturnValue(user);
     const result = await authController.userLogin(res, req, loginBody);
