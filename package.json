@@ -119,19 +119,5 @@
     "ttypescript": "^1.5.12",
     "typescript": "^3.9.10",
     "typescript-transform-paths": "^2.2.4"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".test.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "coverageDirectory": "coverage",
-    "testEnvironment": "node"
   }
 }
