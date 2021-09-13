@@ -19,7 +19,7 @@
     "delete": "pm2 delete task-management-app",
     "stop": "pm2 stop task-management-app",
     "lint": "tsc --noEmit && eslint \"./src/*.{js,ts}\" --quiet",
-    "test": "NODE_ENV=testing jest --no-cache --runInBand --coverage --silent --passWithNoTests --detectOpenHandles --forceExit",
+    "test": "NODE_ENV=testing jest --no-cache --coverage --silent --passWithNoTests --detectOpenHandles --forceExit",
     "migration:create": "ts-node -r ./src/register-module-alias.ts ./node_modules/typeorm/cli.js --config src/ormconfig-cli.ts migration:create",
     "migration:generate": "ts-node -r ./src/register-module-alias.ts ./node_modules/typeorm/cli.js --config src/ormconfig-cli.ts migration:generate",
     "migration:run": "ts-node -r ./src/register-module-alias.ts ./node_modules/typeorm/cli.js --config src/ormconfig-cli.ts migration:run",

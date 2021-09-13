@@ -4,8 +4,6 @@ import {Express} from 'express';
 import {ErrorHandler} from 'middlewares/ErrorHandler';
 import {ApiVersion} from 'constants/ApiVersion';
 import {Environment} from 'constants/Environment';
-import {TaskController} from 'components/task/TaskController';
-import {AuthController} from 'components/auth/AuthController';
 import {HmacSignatureHandler} from 'middlewares/HmacSignatureHandler';
 
 export class RouteHandle {
@@ -26,7 +24,7 @@ export class RouteHandle {
 
   public static RoutingControllersOptions(): RoutingControllersOptions {
     return {
-      controllers: [TaskController, AuthController],
+      controllers: [process.cwd() + `/src/components/**/*.Controller.ts`],
       middlewares: [ErrorHandler, HmacSignatureHandler],
       routePrefix: ApiVersion.Version,
       cors: true,

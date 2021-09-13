@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {TaskController} from './TaskController';
+import {TaskController} from './Task.Controller';
 import {TaskService} from './TaskService';
 import {TaskRepository} from 'repositories/TaskRepository';
 // @ts-ignore

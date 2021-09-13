@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import {AuthController} from './AuthController';
+import {AuthController} from './Auth.Controller';
 import {AuthService} from './AuthService';
 import {UserRepository} from 'repositories/UserRepository';
 // @ts-ignore
