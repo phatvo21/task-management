@@ -12,13 +12,15 @@ The idea of creating this application is to handle real-life requirements using 
 
 Build a task management API.
 
+- User is able to register through an endpoint
+- User is able login through an endpoint after registering
 - A user is able to submit a task through an endpoint.
 - The backend will consume the task (use a random timer delay to simulate some work).
 - Through another endpoint, the user can check the status of the task.
 - Store tasks in a database (MySQL)
 - A task is first created as a draft with a 24h lifetime, it needs to be confirmed to be added to the task queue.
 - Use Redis to store draft tasks
-- Create an authentication procedure between the client and the server using either an HMAC signature and a shared secret OR mutual TLS
+- Create an authentication procedure between the client and the server using either an HMAC signature and a shared secret
 
 # Environment Install.
 
